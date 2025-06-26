@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>組織は正当性を擬制する：研究概要</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: #ecf0f1;
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 85vh;
+            background: linear-gradient(145deg, #34495e, #2c3e50);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            color: #e8c547;
+            margin-bottom: 40px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.8em;
+            color: #3498db;
+            margin-bottom: 35px;
+            border-left: 6px solid #e8c547;
+            padding-left: 25px;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 2.2em;
+            color: #95a5a6;
+            margin-bottom: 25px;
+            margin-top: 30px;
+        }
+
+        p, li {
+            font-size: 1.6em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+
+        ul {
+            margin-left: 30px;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 1.4em;
+            background: rgba(52, 73, 94, 0.8);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .matrix-table th {
+            background: #e8c547;
+            color: #2c3e50;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .matrix-table td {
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #7f8c8d;
+            color: #ecf0f1;
+        }
+
+        .strategy-box {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 1.3em;
+        }
+
+        .comparison-table th {
+            background: #34495e;
+            color: #e8c547;
+            padding: 18px;
+            text-align: left;
+            border: 2px solid #7f8c8d;
+        }
+
+        .comparison-table td {
+            padding: 18px;
+            border: 1px solid #7f8c8d;
+            background: rgba(44, 62, 80, 0.7);
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            padding: 15px 25px;
+            background: #e8c547;
+            color: #2c3e50;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #f1c40f;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #7f8c8d;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(44, 62, 80, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 1.2em;
+            color: #e8c547;
+            z-index: 100;
+        }
+
+        .highlight {
+            color: #e8c547;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.8em;
+            color: #95a5a6;
+            text-align: center;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border: 3px solid #e8c547;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            font-size: 1.3em;
+        }
+
+        .process-step {
+            background: #3498db;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .arrow {
+            font-size: 2em;
+            color: #e8c547;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">25</span>
+    </div>
+
+    <!-- スライド1: タイトル -->
+    <div class="slide-container">
+        <div class="slide active">
+            <h1>組織は正当性を擬制する</h1>
+            <p class="subtitle">依存関係情報の戦略的管理による<br>相反する正当性の同時追求</p>
+            
+            <div style="margin-top: 80px; text-align: center;">
+                <h3>研究概要</h3>
+                <p style="font-size: 1.8em; color: #3498db;">
+                    現代組織が直面する<span class="highlight">自律性と依存性のパラドックス</span>に対する<br>
+                    戦略的対応としての<span class="highlight">「擬制（Fiction）」</span>行動の理論的・実証的解明
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド2: 問題意識 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>問題意識</h2>
+            
+            <h3>現代組織が直面する根本的な矛盾</h3>
+            <ul>
+                <li><span class="highlight">透明性の要求</span> vs <span class="highlight">戦略的曖昧性の必要性</span></li>
+                <li><span class="highlight">ESG開示圧力</span> vs <span class="highlight">競争優位の維持</span></li>
+                <li><span class="highlight">依存関係の現実</span> vs <span class="highlight">自律性の演出</span></li>
+            </ul>
+
+            <div class="definition-box">
+                <h3>核心的な問い</h3>
+                <p style="font-size: 1.8em; text-align: center;">
+                    組織はいかにして、<span class="highlight">相反する正当性要求</span>を<br>
+                    同時に満たすことができるのか？
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド3: 現代組織の複雑な環境 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>現代組織を取り巻く複雑な制度的環境</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                <div class="strategy-box">
+                    <h3 style="color: white; margin-bottom: 20px;">透明性の圧力</h3>
+                    <ul style="color: white;">
+                        <li>ESG開示要求の拡大</li>
+                        <li>ステークホルダー資本主義</li>
+                        <li>デジタル監視社会</li>
+                        <li>SNSによる即時的評価</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <h3 style="color: white; margin-bottom: 20px;">競争の現実</h3>
+                    <ul style="color: white;">
+                        <li>グローバル競争の激化</li>
+                        <li>技術的ノウハウの重要性</li>
+                        <li>戦略的情報の価値</li>
+                        <li>外部依存の不可避性</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <p style="font-size: 1.6em; text-align: center;">
+                    この環境下で組織は<span class="highlight">「透明性のパラドックス」</span>に直面している
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド4: 理論的ギャップ -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>既存理論の限界と理論的ギャップ</h2>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th style="width: 25%;">理論</th>
+                    <th style="width: 35%;">主要な貢献</th>
+                    <th style="width: 40%;">限界</th>
+                </tr>
+                <tr>
+                    <td><strong>資源依存理論</strong><br>(Pfeffer & Salancik, 1978)</td>
+                    <td>組織の外部依存関係の構造的管理</td>
+                    <td>依存関係<span class="highlight">情報</span>の戦略的管理は未理論化</td>
+                </tr>
+                <tr>
+                    <td><strong>制度理論・デカップリング</strong><br>(Meyer & Rowan, 1977)</td>
+                    <td>形式と実践の分離による正当性獲得</td>
+                    <td><span class="highlight">複数の正当性</span>の同時追求プロセスが不明</td>
+                </tr>
+                <tr>
+                    <td><strong>象徴的管理</strong><br>(Westphal & Zajac, 2001)</td>
+                    <td>実質を伴わない行動による評価獲得</td>
+                    <td>受動的適応の枠組みに留まる</td>
+                </tr>
+            </table>
+
+            <div class="definition-box">
+                <h3>理論的ギャップ</h3>
+                <p>組織が<span class="highlight">相反する正当性要求を同時に管理</span>する<br>能動的メカニズムの理論化が不十分</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド5: 擬制概念の定義 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>「擬制（Fiction）」概念の定義</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #8e44ad, #9b59b6); color: white;">
+                <h3 style="color: white; text-align: center; margin-bottom: 30px;">擬制（Fiction）とは</h3>
+                <p style="font-size: 1.8em; text-align: center; line-height: 1.7;">
+                    組織が、<span style="color: #f1c40f;">相反する制度的要求</span>に対応し、<br>
+                    <span style="color: #f1c40f;">複数の正当性を同時に獲得</span>するために、<br>
+                    自らの依存関係や能力に関する現実を<br>
+                    <span style="color: #f1c40f;">意図的に再構成</span>し、<br>
+                    ステークホルダーと共に維持する、<br>
+                    <span style="color: #f1c40f;">機能的な社会的構築物</span>
+                </p>
+            </div>
+
+            <h3>擬制の3つの特徴</h3>
+            <ul>
+                <li><strong>意識的な構築物：</strong>戦略的意図をもって設計・実行される</li>
+                <li><strong>機能的虚構：</strong>組織の生存や目標達成に貢献する</li>
+                <li><strong>集合的維持：</strong>ステークホルダーの合意や解釈によって支えられる</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- スライド6: 自律性の3次元 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>自律性の多次元的定義</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 40px;">
+                <div class="strategy-box">
+                    <h3 style="color: white; text-align: center;">財務的自律性</h3>
+                    <ul style="color: white; margin-top: 20px;">
+                        <li>資金調達源の多様性</li>
+                        <li>自己資本比率</li>
+                        <li>財務レバレッジ</li>
+                        <li>投資決定の独立性</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                    <h3 style="color: white; text-align: center;">戦略的自律性</h3>
+                    <ul style="color: white; margin-top: 20px;">
+                        <li>意思決定の独立性</li>
+                        <li>戦略変更の柔軟性</li>
+                        <li>取締役会の独立性</li>
+                        <li>事業ポートフォリオ</li>
+                    </ul>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                    <h3 style="color: white; text-align: center;">技術的自律性</h3>
+                    <ul style="color: white; margin-top: 20px;">
+                        <li>コア技術の内部保有</li>
+                        <li>R&D能力</li>
+                        <li>知識・特許の独自性</li>
+                        <li>イノベーション創出力</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <p style="text-align: center; font-size: 1.6em;">
+                    これらの次元において、組織は<span class="highlight">「現実」と「演出」</span>を<br>
+                    戦略的に管理している
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド7: LDIM理論の提案 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>正当性-依存性情報管理（LDIM）理論</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white;">
+                <h3 style="color: white; text-align: center;">中核命題</h3>
+                <p style="font-size: 1.7em; text-align: center; line-height: 1.6;">
+                    組織は、ステークホルダーからの<br>
+                    <span style="color: #f1c40f;">相反する正当性要求</span>を同時に満たすため、<br>
+                    自らの依存関係に関する情報を<br>
+                    <span style="color: #f1c40f;">「開示」「隠蔽」「擬制」</span>という<br>
+                    3つの次元で戦略的に管理する
+                </p>
+            </div>
+
+            <div class="process-flow">
+                <div class="process-step">開示<br><small>信頼性のシグナル</small></div>
+                <div class="arrow">→</div>
+                <div class="process-step">隠蔽<br><small>競争上の優位</small></div>
+                <div class="arrow">→</div>
+                <div class="process-step">擬制<br><small>独立性のイメージ</small></div>
+            </div>
+
+            <h3>情報を戦略的資源として位置づけ</h3>
+            <p>組織は情報そのものを重要な戦略的資源として認識し、<br>
+            どの情報をどのステークホルダーにどのような形で提示するかを動的に選択する</p>
+        </div>
+    </div>
+
+    <!-- スライド8: 正当性戦略マトリクス -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>正当性戦略マトリクス</h2>
+            
+            <table class="matrix-table">
+                <tr>
+                    <th rowspan="2" style="width: 20%; vertical-align: middle;">自律性の<br>擬制度</th>
+                    <th colspan="2" style="width: 80%;">依存関係開示度</th>
+                </tr>
+                <tr>
+                    <th style="width: 40%;">低開示</th>
+                    <th style="width: 40%;">高開示</th>
+                </tr>
+                <tr>
+                    <td style="background: #3498db; color: white; font-weight: bold;">高擬制</td>
+                    <td style="background: #e74c3c; color: white;">
+                        <strong>自律戦略</strong><br>
+                        <small>完全独立性の演出</small>
+                    </td>
+                    <td style="background: #27ae60; color: white;">
+                        <strong>統合戦略</strong><br>
+                        <small>バランス型正当性</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="background: #3498db; color: white; font-weight: bold;">低擬制</td>
+                    <td style="background: #95a5a6; color: white;">
+                        <strong>孤立戦略</strong><br>
+                        <small>低注目度・周縁化</small>
+                    </td>
+                    <td style="background: #f39c12; color: white;">
+                        <strong>従属戦略</strong><br>
+                        <small>依存関係の積極開示</small>
+                    </td>
+                </tr>
+            </table>
+
+            <p style="text-align: center; margin-top: 30px; font-size: 1.5em;">
+                組織は環境変化に応じて、これらの戦略を<span class="highlight">動的に選択・転換</span>する
+            </p>
+        </div>
+    </div>
+
+    <!-- スライド9: 統合戦略 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>統合戦略：高擬制 × 高開示</h2>
+            
+            <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                <h3 style="color: white; margin-bottom: 25px;">戦略の特徴</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li>重要な依存関係は<span style="color: #f1c40f;">積極的に開示</span>して信頼性を確保</li>
+                    <li>他の領域では<span style="color: #f1c40f;">独立した革新者</span>としてのイメージを演出</li>
+                    <li>複数の正当性を<span style="color: #f1c40f;">創造的に両立</span>させる高度な戦略</li>
+                </ul>
+            </div>
+
+            <h3>具体的な実践例</h3>
+            <ul>
+                <li><strong>財務依存：</strong>主要投資家との関係を透明に開示しつつ、技術開発は独自性をアピール</li>
+                <li><strong>規制対応：</strong>コンプライアンス体制を詳細に報告しつつ、革新的な事業展開を強調</li>
+                <li><strong>パートナーシップ：</strong>戦略的提携を公表しつつ、自社の中核競争力は保護</li>
+            </ul>
+
+            <div class="definition-box">
+                <h3>適用場面</h3>
+                <p>環境不確実性が高く、複数のステークホルダーからの<br>
+                相反する要求を同時に満たす必要がある場合に最適</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド10: 自律戦略 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>自律戦略：高擬制 × 低開示</h2>
+            
+            <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                <h3 style="color: white; margin-bottom: 25px;">戦略の特徴</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li>依存関係を<span style="color: #f1c40f;">可能な限り隠蔽</span></li>
+                    <li><span style="color: #f1c40f;">完全な独立性</span>というイメージを演出</li>
+                    <li>自社ブランドと<span style="color: #f1c40f;">創業者神話</span>を重視</li>
+                </ul>
+            </div>
+
+            <h3>具体的な実践例</h3>
+            <ul>
+                <li><strong>技術的優位性：</strong>「独自開発技術」「革新的ソリューション」を前面に押し出す</li>
+                <li><strong>リーダーシップ：</strong>カリスマ的創業者やCEOの個人的な影響力を強調</li>
+                <li><strong>市場地位：</strong>「業界のパイオニア」「市場のリーダー」としての地位を主張</li>
+            </ul>
+
+            <div class="definition-box">
+                <h3>リスクと課題</h3>
+                <p>デジタル化と透明性要求の高まりにより、<br>
+                この戦略の<span class="highlight">持続可能性は低下傾向</span>にある</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド11: 従属戦略 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>従属戦略：低擬制 × 高開示</h2>
+            
+            <div class="strategy-box" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                <h3 style="color: white; margin-bottom: 25px;">戦略の特徴</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li>依存関係を<span style="color: #f1c40f;">積極的に開示</span></li>
+                    <li><span style="color: #f1c40f;">ネットワークの一部</span>であることを正当性の源泉とする</li>
+                    <li>安定性と<span style="color: #f1c40f;">信頼性</span>を重視</li>
+                </ul>
+            </div>
+
+            <h3>具体的な実践例</h3>
+            <ul>
+                <li><strong>親会社依存：</strong>グループ企業としての安定性と資源アクセスをアピール</li>
+                <li><strong>パートナーシップ：</strong>主要取引先との長期的関係を競争優位として説明</li>
+                <li><strong>規制適合：</strong>業界標準への適合を品質保証として位置づけ</li>
+            </ul>
+
+            <div class="definition-box">
+                <h3>適用場面</h3>
+                <p>安定性や信頼性が重視される業界、<br>
+                または外部危機に直面した際の<span class="highlight">一時的戦略</span>として有効</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド12: 孤立戦略 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>孤立戦略：低擬制 × 低開示</h2>
+            
+            <div class="strategy-box" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">
+                <h3 style="color: white; margin-bottom: 25px;">戦略の特徴</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li>依存関係も自律性も<span style="color: #f1c40f;">強く主張できない</span>状態</li>
+                    <li><span style="color: #f1c40f;">低注目度</span>で周縁化されるリスク</li>
+                    <li>限定的な価値提案しか<span style="color: #f1c40f;">できない</span></li>
+                </ul>
+            </div>
+
+            <h3>この状態に陥る要因</h3>
+            <ul>
+                <li><strong>資源制約：</strong>十分な擬制を構築するためのリソース不足</li>
+                <li><strong>戦略的混乱：</strong>明確な価値提案や市場ポジションの欠如</li>
+                <li><strong>組織能力：</strong>情報管理や正当性構築のスキル不足</li>
+            </ul>
+
+            <div class="definition-box">
+                <h3>脱出の方向性</h3>
+                <p>新技術の獲得、経営者の交代、市場環境の変化などを<br>
+                きっかけに<span class="highlight">他の戦略への転換</span>を図る必要がある</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド13: 擬制 vs デカップリング -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>擬制とデカップリングの比較</h2>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th style="width: 25%;">比較項目</th>
+                    <th style="width: 37.5%;">デカップリング</th>
+                    <th style="width: 37.5%;">擬制</th>
+                </tr>
+                <tr>
+                    <td><strong>基本的性格</strong></td>
+                    <td>受動的適応戦略</td>
+                    <td><span class="highlight">能動的現実構築</span></td>
+                </tr>
+                <tr>
+                    <td><strong>戦略の本質</strong></td>
+                    <td>形式と実践の分離</td>
+                    <td><span class="highlight">複数現実の同時構築</span></td>
+                </tr>
+                <tr>
+                    <td><strong>情報への依存</strong></td>
+                    <td>情報の非対称性</td>
+                    <td><span class="highlight">情報の解釈権・物語構築</span></td>
+                </tr>
+                <tr>
+                    <td><strong>透明性への対応</strong></td>
+                    <td>透明性時代に機能低下</td>
+                    <td><span class="highlight">透明性時代にこそ進化</span></td>
+                </tr>
+                <tr>
+                    <td><strong>ステークホルダー関係</strong></td>
+                    <td>一方的な印象操作</td>
+                    <td><span class="highlight">協働的現実維持</span></td>
+                </tr>
+            </table>
+
+            <div class="definition-box">
+                <h3>理論的含意</h3>
+                <p>擬制は、デカップリングを超えた<br>
+                <span class="highlight">「現代適応型」組織戦略</span>として位置づけられる</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド14: 理論的命題 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>理論的命題</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px;">
+                <div class="strategy-box">
+                    <h3 style="color: white;">命題1</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <strong>環境不確実性</strong>が高いほど、組織は<span style="color: #f1c40f;">「統合戦略」</span>を採用する傾向が強い
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <h3 style="color: white;">命題2</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <strong>デジタル化</strong>の進展は、<span style="color: #f1c40f;">「自律戦略」</span>の持続可能性を低下させる
+                    </p>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                    <h3 style="color: white;">命題3</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <strong>自律性の擬制度</strong>と組織パフォーマンスの間には<span style="color: #f1c40f;">逆U字型の関係</span>が存在する
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #f39c12, #e67e22);">
+                    <h3 style="color: white;">命題4</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <strong>外部環境からの脅威</strong>に直面した際、組織は一時的に<span style="color: #f1c40f;">「従属戦略」</span>へとシフトする
+                    </p>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <h3>検証アプローチ</h3>
+                <p>これらの命題を、定量分析・事例研究・実験という<br>
+                <span class="highlight">混合研究法</span>により包括的に検証する</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド15: 研究方法論 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>混合研究法による包括的アプローチ</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #8e44ad, #9b59b6); color: white;">
+                <h3 style="color: white; text-align: center;">Convergent Parallel Design</h3>
+                <p style="color: white; text-align: center; font-size: 1.5em;">
+                    3つのアプローチを並行して進め、<br>
+                    最終的に結果を統合する方法論的三角測量
+                </p>
+            </div>
+
+            <div class="process-flow" style="margin-top: 50px;">
+                <div class="process-step" style="background: #3498db;">
+                    <strong>フェーズ1</strong><br>
+                    大規模定量分析<br>
+                    <small>全体傾向の把握</small>
+                </div>
+                <div class="arrow" style="font-size: 3em;">+</div>
+                <div class="process-step" style="background: #27ae60;">
+                    <strong>フェーズ2</strong><br>
+                    比較事例研究<br>
+                    <small>プロセスの解明</small>
+                </div>
+                <div class="arrow" style="font-size: 3em;">+</div>
+                <div class="process-step" style="background: #e74c3c;">
+                    <strong>フェーズ3</strong><br>
+                    実験的検証<br>
+                    <small>因果関係の確認</small>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 50px;">なぜ混合研究法なのか？</h3>
+            <ul>
+                <li>「擬制」は<span class="highlight">多層的現象</span>（言説・構造・実践）</li>
+                <li>組織の<span class="highlight">意図</span>を完全に読み取ることは困難</li>
+                <li>方法論的三角測量により<span class="highlight">妥当性と信頼性</span>を向上</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- スライド16: フェーズ1 定量分析 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>フェーズ1：大規模定量分析</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <div>
+                    <h3>データとサンプル</h3>
+                    <ul>
+                        <li><strong>対象：</strong>東京証券取引所上場企業（約3,800社）</li>
+                        <li><strong>期間：</strong>2015-2025年の10年間</li>
+                        <li><strong>パネルデータ：</strong>38,000社・年の観察値</li>
+                    </ul>
+
+                    <h3>データソース</h3>
+                    <ul>
+                        <li>有価証券報告書（EDINET）</li>
+                        <li>統合報告書・CSRレポート</li>
+                        <li>プレスリリース（日経テレコン）</li>
+                        <li>財務・ガバナンスデータ（東証）</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="strategy-box">
+                        <h3 style="color: white; margin-bottom: 20px;">主要変数の測定</h3>
+                        <ul style="color: white;">
+                            <li><strong>自律性擬制度：</strong><br>BERT/GPTによる言説分析</li>
+                            <li><strong>依存関係開示度：</strong><br>テキストマイニング定量化</li>
+                            <li><strong>組織パフォーマンス：</strong><br>ROA、トービンのQ、ESGスコア</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>分析手法</h3>
+            <div class="process-flow">
+                <div class="process-step">パネルデータ<br>固定効果モデル</div>
+                <div class="arrow">+</div>
+                <div class="process-step">操作変数法<br>(IV)</div>
+                <div class="arrow">+</div>
+                <div class="process-step">差分の差分法<br>(DiD)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド17: フェーズ2 事例研究 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>フェーズ2：比較事例研究</h2>
+            
+            <div class="definition-box">
+                <h3>研究設問</h3>
+                <p style="font-size: 1.6em; text-align: center;">
+                    擬制が<span class="highlight">構築・維持・転換</span>されるプロセスは<br>
+                    いかなるメカニズムで作動するのか？
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                <div>
+                    <h3>サンプリング戦略</h3>
+                    <ul>
+                        <li><strong>理論的サンプリング：</strong>4つの戦略類型から特徴的企業を選定</li>
+                        <li><strong>最大多様性：</strong>業界・規模・所有構造の多様性確保</li>
+                        <li><strong>時系列比較：</strong>戦略転換事例の詳細分析</li>
+                    </ul>
+
+                    <h3>データ収集</h3>
+                    <ul>
+                        <li>経営層・IR担当者への半構造化インタビュー</li>
+                        <li>内部文書・会議録</li>
+                        <li>メディア報道・アナリストレポート</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="strategy-box">
+                        <h3 style="color: white; margin-bottom: 20px;">分析手法</h3>
+                        <ul style="color: white;">
+                            <li><strong>テーマ分析：</strong><br>擬制構築のパターン特定</li>
+                            <li><strong>言説分析：</strong><br>物語構築の技法解明</li>
+                            <li><strong>プロセストレーシング：</strong><br>因果メカニズムの追跡</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>期待される発見</h3>
+            <p>各戦略類型における擬制の<span class="highlight">具体的技法</span>と、<br>
+            戦略転換を引き起こす<span class="highlight">トリガー要因</span>の解明</p>
+        </div>
+    </div>
+
+    <!-- スライド18: フェーズ3 実験検証 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>フェーズ3：実験的検証</h2>
+            
+            <div class="definition-box">
+                <h3>研究設問</h3>
+                <p style="font-size: 1.6em; text-align: center;">
+                    擬制を含む情報開示は、ステークホルダーの<br>
+                    <span class="highlight">意思決定と認知プロセス</span>にどのような影響を与えるか？
+                </p>
+            </div>
+
+            <table class="comparison-table">
+                <tr>
+                    <th style="width: 30%;">実験要素</th>
+                    <th style="width: 70%;">詳細</th>
+                </tr>
+                <tr>
+                    <td><strong>参加者</strong></td>
+                    <td>機関投資家、証券アナリスト、経営管理者（N = 240)</td>
+                </tr>
+                <tr>
+                    <td><strong>実験デザイン</strong></td>
+                    <td>2（自律性擬制度：高/低）× 2（依存関係開示度：高/低）要因計画</td>
+                </tr>
+                <tr>
+                    <td><strong>測定変数</strong></td>
+                    <td>正当性評価、投資意欲、信頼度、情報処理時間</td>
+                </tr>
+                <tr>
+                    <td><strong>神経科学的検証</strong></td>
+                    <td>EEGによる認知的反応（前頭前皮質の活動パターン）</td>
+                </tr>
+            </table>
+
+            <div class="strategy-box" style="margin-top: 40px;">
+                <h3 style="color: white; margin-bottom: 20px;">期待される発見</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li>擬制の<span style="color: #f1c40f;">認知的処理メカニズム</span></li>
+                    <li>ステークホルダー特性による<span style="color: #f1c40f;">反応差異</span></li>
+                    <li>擬制の<span style="color: #f1c40f;">至適レベル</span>の特定</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド19: 理論的貢献 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>期待される理論的貢献</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 40px;">
+                <div class="strategy-box">
+                    <h3 style="color: white; margin-bottom: 20px;">第一の貢献：理論的統合</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <span style="color: #f1c40f;">資源依存理論</span>と<span style="color: #f1c40f;">制度理論</span>を「擬制」という概念で統合し、<br>
+                        情報管理を中核に据えた新たな<span style="color: #f1c40f;">正当性管理理論（LDIM理論）</span>を構築
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                    <h3 style="color: white; margin-bottom: 20px;">第二の貢献：概念的革新</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        組織論に<span style="color: #f1c40f;">「擬制」</span>という新たな分析概念を導入し、<br>
+                        組織の<span style="color: #f1c40f;">象徴的行動と戦略的行動の結節点</span>を理論化
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <h3 style="color: white; margin-bottom: 20px;">第三の貢献：パラダイム転換</h3>
+                    <p style="color: white; font-size: 1.4em;">
+                        <span style="color: #f1c40f;">情報そのもの</span>を組織の戦略的資源として位置づけ、<br>
+                        デジタル時代の<span style="color: #f1c40f;">組織透明性</span>に関する新たな理論的パラダイムを提示
+                    </p>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <h3>組織研究への根本的視座転換</h3>
+                <p style="text-align: center; font-size: 1.6em;">
+                    組織を<span class="highlight">「何であるか」</span>から<span class="highlight">「何を演じるか」</span>へ
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド20: 実践的含意 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>実践的含意</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                <div>
+                    <h3>経営者への含意</h3>
+                    <div class="strategy-box">
+                        <ul style="color: white; font-size: 1.3em;">
+                            <li><span style="color: #f1c40f;">正当性戦略診断</span>フレームワーク</li>
+                            <li>環境変化に応じた<span style="color: #f1c40f;">最適情報管理戦略</span></li>
+                            <li><span style="color: #f1c40f;">擬制度最適化</span>の指針</li>
+                            <li>戦略転換の<span style="color: #f1c40f;">タイミング判断</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>政策立案者への含意</h3>
+                    <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                        <ul style="color: white; font-size: 1.3em;">
+                            <li><span style="color: #f1c40f;">画一的開示規制</span>の見直し</li>
+                            <li>産業特性を考慮した<span style="color: #f1c40f;">柔軟な規制設計</span></li>
+                            <li><span style="color: #f1c40f;">段階的透明性</span>の導入</li>
+                            <li>イノベーションを阻害しない<span style="color: #f1c40f;">情報管理ルール</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h3>投資家・アナリストへの含意</h3>
+            <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b); margin-top: 30px;">
+                <ul style="color: white; font-size: 1.3em;">
+                    <li>企業の<span style="color: #f1c40f;">擬制戦略</span>を意識した分析視角</li>
+                    <li><span style="color: #f1c40f;">正当性戦略マトリクス</span>による企業評価ツール</li>
+                    <li>情報開示の<span style="color: #f1c40f;">質的評価</span>基準の開発</li>
+                    <li><span style="color: #f1c40f;">戦略転換リスク</span>の早期検知指標</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド21: 責任ある擬制 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>倫理的含意：責任ある擬制</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #8e44ad, #9b59b6); color: white;">
+                <h3 style="color: white; text-align: center;">Responsible Fiction</h3>
+                <p style="color: white; text-align: center; font-size: 1.6em;">
+                    擬制は<span style="color: #f1c40f;">単なる欺瞞ではなく</span>、<br>
+                    社会的価値を創造するための<span style="color: #f1c40f;">創造的技芸</span>である
+                </p>
+            </div>
+
+            <h3>責任ある擬制の3原則</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; margin-top: 40px;">
+                <div class="strategy-box">
+                    <h4 style="color: white; text-align: center;">透明性の段階的開示</h4>
+                    <p style="color: white; text-align: center;">
+                        時間の経過とともに<br>
+                        情報の透明性を<br>
+                        段階的に高める
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                    <h4 style="color: white; text-align: center;">ステークホルダー<br>利益の考慮</h4>
+                    <p style="color: white; text-align: center;">
+                        短期的組織利益のみでなく<br>
+                        長期的社会的価値を<br>
+                        重視する
+                    </p>
+                </div>
+                
+                <div class="strategy-box" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                    <h4 style="color: white; text-align: center;">法的・倫理的<br>境界の遵守</h4>
+                    <p style="color: white; text-align: center;">
+                        明確な虚偽や詐欺との<br>
+                        差別化を<br>
+                        厳格に維持
+                    </p>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <h3>社会的意義</h3>
+                <p>複雑で矛盾に満ちた現代社会において、<br>
+                擬制は<span class="highlight">創造的な社会統合メカニズム</span>として機能する</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド22: 研究の限界 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>研究の限界と課題</h2>
+            
+            <h3>方法論的限界</h3>
+            <ul>
+                <li><strong>意図の推定：</strong>テキストデータから組織の「真の意図」を完全に読み取ることの困難さ</li>
+                <li><strong>文化的特殊性：</strong>日本の「建前と本音」文化が結果に与える影響の程度</li>
+                <li><strong>一般化可能性：</strong>日本市場への限定による国際的適用可能性の制約</li>
+            </ul>
+
+            <h3>理論的制約</h3>
+            <ul>
+                <li><strong>動的プロセス：</strong>擬制の構築・維持・転換プロセスの時系列的複雑性</li>
+                <li><strong>測定の妥当性：</strong>「擬制度」という新概念の操作化の困難さ</li>
+                <li><strong>因果関係：</strong>擬制と組織成果の間の複雑な因果メカニズム</li>
+            </ul>
+
+            <div class="strategy-box" style="margin-top: 40px;">
+                <h3 style="color: white; margin-bottom: 20px;">将来研究への示唆</h3>
+                <ul style="color: white; font-size: 1.4em;">
+                    <li><span style="color: #f1c40f;">国際比較研究</span>による文化差異の解明</li>
+                    <li><span style="color: #f1c40f;">リアルタイムデータ</span>を用いた動的分析</li>
+                    <li>多様なステークホルダー反応の<span style="color: #f1c40f;">包括的検証</span></li>
+                    <li>デジタル技術（AI、ブロックチェーン）が擬制に与える<span style="color: #f1c40f;">長期的影響</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド23: 現代社会への含意 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>現代社会への含意</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #16a085, #1abc9c); color: white;">
+                <h3 style="color: white; text-align: center;">擬制社会の到来</h3>
+                <p style="color: white; text-align: center; font-size: 1.6em;">
+                    デジタル透明性時代において、<br>
+                    擬制は組織だけでなく<span style="color: #f1c40f;">社会全体</span>の<br>
+                    現実構築メカニズムとなっている
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;">
+                <div>
+                    <h3>社会レベルでの擬制</h3>
+                    <ul>
+                        <li><strong>政治：</strong>SNSを通じた「見せたい現実」の演出</li>
+                        <li><strong>メディア：</strong>複数の「真実」の並存と拡散</li>
+                        <li><strong>個人：</strong>ソーシャルメディアでの自己ブランディング</li>
+                        <li><strong>消費：</strong>「物語」による価値創造</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="strategy-box">
+                        <h3 style="color: white; margin-bottom: 20px;">社会的課題</h3>
+                        <ul style="color: white; font-size: 1.3em;">
+                            <li><span style="color: #f1c40f;">ポスト・トゥルース</span>現象の加速</li>
+                            <li><span style="color: #f1c40f;">社会的分断</span>の深化</li>
+                            <li><span style="color: #f1c40f;">情報リテラシー</span>の重要性</li>
+                            <li><span style="color: #f1c40f;">民主的議論</span>の質的変化</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="definition-box" style="margin-top: 40px;">
+                <h3>研究者の役割</h3>
+                <p style="text-align: center;">
+                    複数の環世界を渡り歩く<span class="highlight">「同時通訳者」</span>として、<br>
+                    世界の全体性の回復を夢想し続ける
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド24: 結論 -->
+    <div class="slide-container">
+        <div class="slide">
+            <h2>結論</h2>
+            
+            <div class="definition-box" style="background: linear-gradient(135deg, #2c3e50, #34495e); border: 3px solid #e8c547;">
+                <h3 style="text-align: center; margin-bottom: 30px;">本研究の根本的示唆</h3>
+                <p style="font-size: 1.8em; text-align: center; line-height: 1.7;">
+                    組織のあり方を<br>
+                    <span class="highlight">「何であるか」</span>から<span class="highlight">「何を演じるか」</span>へと<br>
+                    捉え直す視点の転換
+                </p>
+            </div>
+
+            <h3>擬制の本質</h3>
+            <ul>
+                <li>正当性や自律性は、組織に静的に備わった<span class="highlight">属性ではない</span></li>
+                <li>ステークホルダーとの相互作用の中で戦略的に構築される<span class="highlight">動的なパフォーマンス</span></li>
+                <li>複雑で矛盾に満ちた制度的環境での<span class="highlight">創造的適応戦略</span></li>
+            </ul>
+
+            <div class="strategy-box" style="margin-top: 40px;">
+                <h3 style="color: white; margin-bottom: 20px;">21世紀の組織理解への新たな基盤</h3>
+                <p style="color: white; font-size: 1.5em;">
+                    組織が生存し、繁栄し、社会に価値を提供し続けるためには、<br>
+                    <span style="color: #f1c40f;">洗練された情報管理戦略</span>が不可欠である
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- スライド25: 謝辞 -->
+    <div class="slide-container">
+        <div class="slide">
+            <div style="text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                <h1 style="margin-bottom: 60px;">ご清聴ありがとうございました</h1>
+                
+                <div style="margin-bottom: 50px;">
+                    <h2 style="border: none; color: #95a5a6;">質疑応答</h2>
+                </div>
+                
+                <div class="definition-box" style="background: linear-gradient(135deg, #34495e, #2c3e50);">
+                    <p style="font-size: 1.4em; text-align: center; line-height: 1.6;">
+                        環世界の交差点で、誰もが自分から見えているサイコロの面を<br>
+                        見栄え良く塗るのに労力を注ぐ中、<br>
+                        ただ一人サイコロのすべての面を想像し、<br>
+                        <span class="highlight">世界の全体性の回復を夢想</span>している人間が、<br>
+                        研究者である
+                    </p>
+                </div>
+                
+                <p style="margin-top: 40px; font-size: 1.2em; color: #95a5a6;">
+                    — 本研究より —
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()" disabled>前へ</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">次へ</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // ボタンの状態更新
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // キーボードナビゲーション
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // 初期化
+        showSlide(0);
+    </script>
+</body>
+</html>
